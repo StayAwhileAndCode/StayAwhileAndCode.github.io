@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diablo Survivors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  canvas { position: absolute; left: 0; top: 0; }
+  #mundo { image-rendering: pixelated; }
+  #aviso { position: absolute; inset: 0; display: grid; place-items: center; color: #c9b27c;
+           font: 18px Georgia, serif; padding: 16px; text-align: center; overflow: auto; }
+  .entrada { max-width: 680px; font: 16px/1.5 'Cinzel', Georgia, serif; }
+  .entrada h1 { color: #c8341c; font-size: 52px; margin: 0; letter-spacing: 4px; text-shadow: 0 0 24px #a00; }
+  .entrada h1 span { display: block; color: #d8c08a; font-size: 24px; letter-spacing: 12px; text-shadow: none; }
+  .entrada .sub { color: #8f7d58; margin-top: 4px; }
+  .entrada code { color: #e8d8b0; }
+  .entrada .botao { display: block; margin: 14px auto; padding: 14px 20px; max-width: 380px; cursor: pointer;
+           background: #5a140a; color: #ffe0a0; border: 2px solid #e8c040; font-size: 18px; }
+  .entrada .botao.fraco { background: #1a140c; border-color: #6b5530; color: #c9b27c; font-size: 14px; padding: 8px; }
+  .entrada .legal { color: #6b5530; font-size: 12px; margin-top: 28px; }
+  #barra { display: none; height: 10px; border: 1px solid #6b5530; margin: 16px 0 6px; }
+  #barra div { height: 100%; width: 0; background: #b03020; }
+  .entrada .idiomas { position: absolute; top: 16px; right: 16px; display: flex; gap: 6px; }
+  .entrada .idiomas button { font: 700 13px Cinzel, Georgia, serif; color: #8f7d58; background: rgba(20,14,8,0.8); border: 1px solid #5f5038; padding: 6px 12px; cursor: pointer; }
+  .entrada .idiomas button.sel { color: #f0d890; border-color: #c8a050; background: rgba(90,60,20,0.8); }
+</style>
+</head>
+<body>
+<canvas id="mundo"></canvas>
+<canvas id="hud"></canvas>
+<div id="aviso">Loading...</div>
+<script>
+  // Mostra erros na tela (ajuda a testar sem console aberto).
+  addEventListener('error', e => {
+    const d = document.createElement('pre');
+    d.className = 'erro';
+    d.style.cssText = 'position:absolute;left:8px;bottom:8px;color:#f66;font:12px monospace;z-index:9';
+    d.textContent = e.message + ' @' + (e.filename || '').split('/').pop() + ':' + e.lineno;
+    document.body.appendChild(d);
+  });
+  addEventListener('unhandledrejection', e => {
+    const d = document.createElement('pre');
+    d.className = 'erro';
+    d.style.cssText = 'position:absolute;left:8px;top:140px;color:#f66;font:13px monospace;z-index:9;white-space:pre-wrap';
+    d.textContent = String(e.reason && e.reason.stack || e.reason);
+    document.body.appendChild(d);
+  });
+</script>
+<script src="carregador/traducao_en.js"></script>
+<script src="carregador/idioma.js"></script>
+<script src="carregador/fonte_d1.js"></script>
+<script>if (typeof tr === 'function') document.getElementById('aviso').textContent = tr('Carregando a Catedral...'); else document.getElementById('aviso').textContent = 'Missing game files: upload the whole folder as a .zip (index.html at the root).';</script>
+<script src="carregador/receita_d1.js"></script>
+<script src="carregador/mpq.js"></script>
+<script src="carregador/montar.js"></script>
+<script src="carregador/inicio.js"></script>
+</body>
+</html>
